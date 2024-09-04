@@ -1,0 +1,25 @@
+{
+  "labels": {
+    "start": {
+      "ko": "들어가기"
+    },
+    "submit": { "ko": "보내기" },
+    "nextDefault": {
+      "ko": "다음으로",
+      "en": "next"
+    },
+    "next": {}
+  },
+  "websurvey": {
+    "shorttext": {
+      "Q2": {
+        "isWysiwyg": true,
+        "line": 5
+      },
+      "Q3": {
+        "isWysiwyg": false,
+        "line": 1
+      }
+    }
+  }
+}
