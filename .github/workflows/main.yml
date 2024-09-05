@@ -1,14 +1,41 @@
 name: CI
-on: [push]
+
+on: 
+  push:
+    branches:
+      - main  # 주로 main 브랜치에 push할 때 실행
+
 jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
+
     steps:
+      # 1. Check out the repository
       - uses: actions/checkout@v2
+
+      # 2. Install dependencies using Yarn
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
+
+      # 3. Run tests
       - uses: borales/actions-yarn@v3.0.0
         with:
-          cmd: test # will run `yarn test` command
+          cmd: test
+
+      # 4. Run the 'yarn generate' command to generate files
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: generate
+
+      # 5. Commit and push the changes back to the repository
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Generated files via GitHub Actions"
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
