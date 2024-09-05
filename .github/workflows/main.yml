@@ -1,4 +1,4 @@
-name: CI
+name: JSON Schema Generation and Validation
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Test
+    name: JSON Schema Generator
     runs-on: ubuntu-latest
 
     steps:
