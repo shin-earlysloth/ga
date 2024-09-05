@@ -1,9 +1,9 @@
 name: CI
 
-on: 
+on:
   push:
     branches:
-      - main  # 주로 main 브랜치에 push할 때 실행
+      - main  # main 브랜치에 push할 때 실행
 
 jobs:
   build:
@@ -29,13 +29,14 @@ jobs:
         with:
           cmd: generate
 
-      # 5. Commit and push the changes back to the repository
+      # 5. Commit and Push changes
       - name: Commit and Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git commit -m "Generated files via GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git push origin HEAD:main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
