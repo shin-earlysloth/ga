@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main  # main 브랜치에 push할 때 실행
+      - main
 
 jobs:
   build:
@@ -29,14 +29,24 @@ jobs:
         with:
           cmd: generate
 
-      # 5. Commit and Push changes
-      - name: Commit and Push changes
+      # 5. Check for changes, commit, and push
+      - name: Commit and Push changes if any
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Generated files via GitHub Actions"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin HEAD:main
+
+          # Check if there are any changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Generated files via GitHub Actions"
+
+            # Pull the latest changes from the remote before pushing
+            git pull --rebase origin main
+
+            # Push the changes to the main branch
+            git push origin HEAD:main
+          fi
