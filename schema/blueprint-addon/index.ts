@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const language = z.union([z.literal("ko"), z.literal("en")]);
+export const language = z.union([z.literal("ko"), z.literal("en")]);
 
 const nid = z
   .string()

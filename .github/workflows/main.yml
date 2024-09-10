@@ -15,17 +15,17 @@ jobs:
       - uses: actions/checkout@v2
 
       # 2. Install dependencies using Yarn
-      - uses: borales/actions-yarn@v3.0.0
+      - uses: borales/actions-yarn@v4
         with:
           cmd: install
 
       # 3. Run tests
-      - uses: borales/actions-yarn@v3.0.0
+      - uses: borales/actions-yarn@v4
         with:
           cmd: test
 
       # 4. Run the 'yarn generate' command to generate files
-      - uses: borales/actions-yarn@v3.0.0
+      - uses: borales/actions-yarn@v4
         with:
           cmd: generate
 
