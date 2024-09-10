@@ -11,8 +11,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "generate": "ts-node generate-schemas.ts",
-    "build": "tsup b.ts --format esm"
+    "generate": "node generate-schemas.ts"
   },
   "devDependencies": { 
     "@types/jest": "^29.0.0",
